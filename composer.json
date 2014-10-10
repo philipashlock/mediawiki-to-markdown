@@ -1,0 +1,5 @@
+{
+    "require": {
+        "ryakad/pandoc-php": "dev-master"
+    }
+}
