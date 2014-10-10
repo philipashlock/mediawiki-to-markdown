@@ -5,22 +5,55 @@ $arguments = arguments($argv);
 
 require 'vendor/autoload.php';
 
+
+
+// Load arguments passed from CLI 
+
 if(empty($arguments['filename'])) {
     echo "No input file specified. Use --filename=mediawiki.xml" . PHP_EOL . PHP_EOL; 
     exit;
 }
 
+if(!empty($arguments['output'])) {
+    $output_path = $arguments['output'];
+        
+    if(!file_exists($output_path)) {
+        echo "Creating output directory $output_path" . PHP_EOL . PHP_EOL;
+        mkdir($output_path);
+    }
 
+} else {
+    $output_path = '';
+}
+
+if(!empty($arguments['format'])) {
+    $format = $arguments['format'];
+} else {
+    $format = 'markdown_github';
+}
+
+
+if(!empty($arguments['fm']) OR (empty($arguments['fm']) && $format == 'markdown_github')) {
+    $add_meta = true;
+} else {
+    $add_meta = false;
+}
+
+
+
+
+// Load XML file
 $file = file_get_contents($arguments['filename']);
 
 $xml = str_replace('xmlns=', 'ns=', $file); //$string is a string that contains xml... 
 
 $xml = new SimpleXMLElement($xml);
 
-/* Search for <a><b><c> */
+
 $result = $xml->xpath('page');
 $count = 0;
 
+// Iterate through XML
 while(list( , $node) = each($result)) {
     
     $title = $node->xpath('title');
@@ -39,23 +72,31 @@ while(list( , $node) = each($result)) {
     $text = $text[0];
     $text = html_entity_decode($text);
 
-    // append page title frontmatter to text
-    $frontmatter = "---\n";
-    $frontmatter .= "title: $filename\n";
-    $frontmatter .= "permalink: $url\n";
-    $frontmatter .= "---\n\n";
-
+    
+    // prepare to append page title frontmatter to text
+    if ($add_meta) {    
+        $frontmatter = "---\n";
+        $frontmatter .= "title: $filename\n";
+        $frontmatter .= "permalink: $url\n";
+        $frontmatter .= "---\n\n";
+    }
 
     $pandoc = new Pandoc\Pandoc();
     $options = array(
         "from"  => "mediawiki",
-        "to"    => "markdown_github"
+        "to"    => $format
     );
     $text = $pandoc->runWith($text, $options);
 
     $text = str_replace('\_', '_', $text);
 
-    $text = $frontmatter . $text;
+    if ($add_meta) {
+        $text = $frontmatter . $text;
+    }
+
+    if (substr($output_path, -1) != '/') $output_path = $output_path . '/';
+
+    $directory = $output_path . $directory;
 
     // create directory if necessary
     if(!empty($directory)) {
@@ -84,9 +125,9 @@ if ($count > 0) {
 function arguments($argv) {
     $_ARG = array();
     foreach ($argv as $arg) {
-      if (ereg('--([^=]+)=(.*)',$arg,$reg)) {
+      if (preg_match('/--([^=]+)=(.*)/',$arg,$reg)) {
         $_ARG[$reg[1]] = $reg[2];
-      } elseif(ereg('-([a-zA-Z0-9])',$arg,$reg)) {
+      } elseif(preg_match('/-([a-zA-Z0-9])/',$arg,$reg)) {
             $_ARG[$reg[1]] = 'true';
         }
   
