@@ -72,8 +72,8 @@ while(list( , $node) = each($result)) {
 
     $text = $node->xpath('revision/text');
     $text = $text[0];
-    $text = html_entity_decode($text);
-
+    $text = html_entity_decode($text); // decode inline html
+    $text = preg_replace_callback('/\[\[(.+?)\]\]/', "new_link", $text); // adds leading slash to links, "absolute-path reference"
     
     // prepare to append page title frontmatter to text
     if ($add_meta) {    
@@ -151,6 +151,13 @@ function arguments($argv) {
     }
   return $_ARG;
 }
+
+
+function new_link($matches){
+    $new_link = str_replace(' ', '_', $matches[1]);
+    return "[[/$new_link|${matches[1]}]]";
+}
+
 
 
 
