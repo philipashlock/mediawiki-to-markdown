@@ -52,6 +52,7 @@ $xml = new SimpleXMLElement($xml);
 
 $result = $xml->xpath('page');
 $count = 0;
+$directory_list = array();
 
 // Iterate through XML
 while(list( , $node) = each($result)) {
@@ -63,6 +64,7 @@ while(list( , $node) = each($result)) {
     if($slash = strpos($url, '/')){
         $directory = substr($url, 0, $slash);
         $filename = substr($url, $slash+1);
+        $directory_list[$directory] = true;
     } else {
         $directory = '';
         $filename = $url;
@@ -77,7 +79,7 @@ while(list( , $node) = each($result)) {
     if ($add_meta) {    
         $frontmatter = "---\n";
         $frontmatter .= "title: $filename\n";
-        $frontmatter .= "permalink: $url\n";
+        $frontmatter .= "permalink: /$url/\n";
         $frontmatter .= "---\n\n";
     }
 
@@ -114,6 +116,21 @@ while(list( , $node) = each($result)) {
     fclose($file);
 
     $count++;
+
+}
+
+
+// Rename and move files with the same name as directories
+if (!empty($directory_list) && !empty($arguments['indexes'])) {
+
+    $directory_list = array_keys($directory_list);
+
+    foreach ($directory_list as $directory_name) {
+
+        if(file_exists($output_path . $directory_name . '.md')) {
+            rename($output_path . $directory_name . '.md', $output_path . $directory_name . '/index.md');
+        }
+    }
 
 }
 

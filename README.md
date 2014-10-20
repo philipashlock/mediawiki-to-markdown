@@ -44,6 +44,11 @@ You can also use `output` to specify an output folder since each wiki page in th
 `php convert.php --filename=mediawiki.xml --output=export`
 
 
+####--indexes####
+You can set `indexes` as `true` if you want pages with the same name as a directory to be renamed as index.md and placed into their directory
+
+`php convert.php --filename=mediawiki.xml --output=export --indexes=true`
+
 ####--frontmatter####
 You can specify whether you want frontmatter included. This is automatically set to `true` when the output format is `markdown_github`
 
