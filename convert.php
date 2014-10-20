@@ -154,8 +154,18 @@ function arguments($argv) {
 
 
 function new_link($matches){
-    $new_link = str_replace(' ', '_', $matches[1]);
-    return "[[/$new_link|${matches[1]}]]";
+    if(strpos($matches[1], '|') != true) {
+        $new_link = str_replace(' ', '_', $matches[1]);
+        return "[[/$new_link|${matches[1]}]]";
+    } else {
+
+        $link = trim(substr($matches[1], 0, strpos($matches[1], '|')));
+        $link = '/' . str_replace(' ', '_', $link);
+
+        $link_text = trim(substr($matches[1], strpos($matches[1], '|')+1));
+
+        return "[[$link|$link_text]]";
+    }
 }
 
 
