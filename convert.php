@@ -58,10 +58,11 @@ $directory_list = array();
 while(list( , $node) = each($result)) {
     
     $title = $node->xpath('title');
-    $url = $title[0];
-    $url = str_replace(' ', '_', $url);
+    $title = $title[0];
+    $url = str_replace(' ', '_', $title);
 
     if($slash = strpos($url, '/')){
+        $title = str_replace('/', ' ', $title);
         $directory = substr($url, 0, $slash);
         $filename = substr($url, $slash+1);
         $directory_list[$directory] = true;
@@ -78,7 +79,7 @@ while(list( , $node) = each($result)) {
     // prepare to append page title frontmatter to text
     if ($add_meta) {    
         $frontmatter = "---\n";
-        $frontmatter .= "title: $filename\n";
+        $frontmatter .= "title: $title\n";
         $frontmatter .= "permalink: /$url/\n";
         $frontmatter .= "---\n\n";
     }
