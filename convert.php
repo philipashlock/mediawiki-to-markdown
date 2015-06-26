@@ -1,4 +1,3 @@
-
 <?php
 
 $arguments = arguments($argv);
@@ -200,6 +199,3 @@ function normalizePath($path)
     }
     return implode('/', $parts);
 }
-
-
-?>
