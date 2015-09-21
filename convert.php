@@ -10,8 +10,7 @@ require 'vendor/autoload.php';
 // Load arguments passed from CLI 
 
 if(empty($arguments['filename'])) {
-    echo "No input file specified. Use --filename=mediawiki.xml" . PHP_EOL . PHP_EOL; 
-    exit;
+    byebye(1, "No input file specified. Use --filename=mediawiki.xml");
 }
 
 if(!empty($arguments['output'])) {
@@ -19,7 +18,8 @@ if(!empty($arguments['output'])) {
         
     if(!file_exists($output_path)) {
         echo "Creating output directory $output_path" . PHP_EOL . PHP_EOL;
-        mkdir($output_path);
+        if (!mkdir($output_path))
+            byebye(2, "Error creating directory " . $output_path);
     }
 
 } else {
@@ -112,7 +112,11 @@ while(list( , $node) = each($result)) {
 
     // create file
     $file = fopen(normalizePath($directory . $filename . '.md'), 'w');
-    fwrite($file, $text);
+    if ($file != FALSE) {
+        fwrite($file, $text);
+    } else {
+        byebye(3, "Error writing file " . $filename . ".md");
+    }
     fclose($file);
 
     $count++;
@@ -150,6 +154,13 @@ function arguments($argv) {
   
     }
   return $_ARG;
+}
+
+
+// Gently leave with an error message
+function byebye($code, $message) {
+    fwrite(STDERR, $message . PHP_EOL . PHP_EOL);
+    exit($code);
 }
 
 
