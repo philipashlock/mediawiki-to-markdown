@@ -1,6 +1,7 @@
 # Mediawiki to Github Flavoured Markdown
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/outofcontrol/mediawiki-to-gfm.svg?branch=master)](https://travis-ci.org/outofcontrol/mediawiki-to-gfm)
 
 Mediawiki to GFM is a script to convert a set of [Mediawiki](https://www.mediawiki.org)
 pages to [Github Flavoured Markdown](https://github.github.com/gfm/) (GFM). This script was written from a necessity to convert a MediaWiki installation to a Gitlab wiki. This code is based on [MediaWiki to Markdown](https://github.com/philipashlock/mediawiki-to-markdown) by [Philip Ashlock](https://github.com/philipashlock/). Philip graciously gave us permission to post our version as a new project.
