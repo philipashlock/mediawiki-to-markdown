@@ -43,7 +43,7 @@ Run the script on your exported MediaWiki XML file:
                  directory. File names will be converted in the following way:
                  Mediawiki_folder/My_File_Name -> Mediawiki_folder_My_File_Name
                  and saved in a file called 'Mediawiki_folder_My_File_Name.md' 
-                 This is required if you are importing into Gitlab (Default: false).
+                 (Default: false).
     --help     : This help message.
 
 ## Export Mediawiki Files to XML 

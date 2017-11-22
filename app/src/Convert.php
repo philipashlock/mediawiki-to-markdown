@@ -378,8 +378,7 @@ Options:
     --flatten  : This flag will force all pages to be saved in a single level 
                  directory. File names will be converted in the following way:
                  Mediawiki_folder/My_File_Name -> Mediawiki_folder_My_File_Name
-                 and saved in a file called 'Mediawiki_folder_My_File_Name.md' This is 
-                 required if you are importing into Gitlab (Default: false).
+                 and saved in a file called 'Mediawiki_folder_My_File_Name.md'
     --help     : This help message.
 
 
