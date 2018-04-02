@@ -58,7 +58,7 @@ $directory_list = array();
 while(list( , $node) = each($result)) {
     
     $title = $node->xpath('title');
-    $title = $title[0];
+    $title = array_pop($title);
     $url = str_replace(' ', '_', $title);
 
     if($slash = strpos($url, '/')){
@@ -72,7 +72,7 @@ while(list( , $node) = each($result)) {
     }
 
     $text = $node->xpath('revision/text');
-    $text = $text[0];
+    $text = array_pop($text);
     $text = html_entity_decode($text); // decode inline html
     $text = preg_replace_callback('/\[\[(.+?)\]\]/', "new_link", $text); // adds leading slash to links, "absolute-path reference"
     
