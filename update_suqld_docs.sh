@@ -18,6 +18,7 @@ php convert.php --filename=docsexport.xml --indexes=true --output=docs/
 
 echo "Committing changes"
 pushd docs
+git status
 git add ./
 git commit -am "Updated docs from $(date '+%d %b %Y')"
 git push
