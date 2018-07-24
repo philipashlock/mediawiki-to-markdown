@@ -22,6 +22,8 @@ Major differences include the additon of PHPUnit tests, code is broken into clas
     git clone https://github.com/outofcontrol/mediawiki-to-gfm.git
     cd mediawiki-to-gfm
     composer update --no-dev
+    
+## Run
 
 Run the script on your exported MediaWiki XML file:
 
@@ -32,19 +34,19 @@ Run the script on your exported MediaWiki XML file:
     ./convert.php --filename=/path/to/filename.xml --output=/path/to/converted/files --format=gfm --addmeta --flatten --indexes
 
     --filename : Location of the mediawiki exported XML file to convert 
-                 to GFM format (Required).
+                 to GFM format (Required)
     --output   : Location where you would like to save the converted files
-                 (Default: ./output).
+                 (Default: ./output)
     --format   : What format would you like to convert to. Default is GFM 
                  (for use in Gitlab and Github) See pandoc documentation
-                 for more formats (Default: 'gfm').
-    --addmeta  : This flag will add a Permalink to each file (Default: false).
+                 for more formats (Default: 'gfm')
+    --addmeta  : This flag will add a Permalink to each file (Default: false)
     --flatten  : This flag will force all pages to be saved in a single level 
                  directory. File names will be converted in the following way:
                  Mediawiki_folder/My_File_Name -> Mediawiki_folder_My_File_Name
                  and saved in a file called 'Mediawiki_folder_My_File_Name.md' 
-                 (Default: false).
-    --help     : This help message.
+                 (Default: false)
+    --help     : This help message (almost)
 
 ## Export Mediawiki Files to XML 
 
@@ -55,13 +57,15 @@ you accomplish this quickly:
 1. With help from the filter tool at the top of 'All Pages', copy the page names to convert into a text file (one file name per line).
 1. MediaWiki -> Special Pages -> 'Export'
 1. Paste the list of pages into the Export field. 
+1. Check: 'Include only the current revision, not the full history'  
    Note: This convert script will only do latest version, not revisions. 
-1. Check: 'Include only the current revision, not the full history' 
 1. Uncheck: Include Templates
 1. Check: Save as file
 1. Click on the 'Export' button.
+1. An XML file will be saved locally. 
+1. Use this convert.php script to convert the XML file a set of GFM formatted pages. 
 
-In theory you can convert to any of these formats… (not tested):
+In theory you can convert to any of these formats… (not tested):  
     https://pandoc.org/MANUAL.html#description
 
 Updates and improvements are welcome! Please only submit a PR if you have also written tests and tested your code! To run phpunit tests, update composer without the --no-dev parameter:
