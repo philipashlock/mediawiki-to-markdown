@@ -10,7 +10,7 @@ Major differences include the additon of PHPUnit tests, code is broken into clas
 
 ## Requirements
 
-* PHP: Tested in PHP 7.0 and 7.1
+* PHP: Tested in PHP 7.0, 7.1 and 7.2
 * Pandoc: Installation instructions are here https://pandoc.org/installing.html
     - Tested on version 2.0.1.1 and 2.0.2 
 * MediaWiki: https://www.mediawiki.org/wiki/MediaWiki
@@ -67,6 +67,10 @@ In theory you can convert to any of these formats… (not tested):
 Updates and improvements are welcome! Please only submit a PR if you have also written tests and tested your code! To run phpunit tests, update composer without the --no-dev parameter:
 
     composer update
+
+## Thank you
+
+[@mloskot](https://github.com/mloskot/): Verify that this script does run in PHP 7.2 ([#1](https://github.com/outofcontrol/mediawiki-to-gfm/issues/1))
 
 ## Disclaimer
 
