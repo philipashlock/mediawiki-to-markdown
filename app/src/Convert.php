@@ -239,7 +239,7 @@ class Convert
      */
     public function renameFiles()
     {
-        if ($this->flatten || !count($this->directory_list) || !$this->indexes) {
+        if ($this->flatten || !count((array)$this->directory_list) || !$this->indexes) {
             return false;
         }
 
