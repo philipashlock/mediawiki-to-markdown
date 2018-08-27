@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 cd "$(dirname "$0")"
 
 echo "Fetching Mediawiki export"
@@ -26,3 +27,4 @@ popd
 
 echo "Cleanup"
 rm docsexport.xml
+echo "Success - Finished"
