@@ -18,7 +18,7 @@ echo "Removing all files from docs repo so we can process the export"
 rm -rf docs/*
 
 echo "Converting Mediawiki export to Markdown"
-php convert.php --filename=docsexport.xml --indexes=true --output=docs/
+php convert.php --filename=docsexport.xml --indexes=true --addmeta --output=docs/
 
 echo "Committing changes"
 pushd docs
