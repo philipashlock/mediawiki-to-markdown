@@ -2,6 +2,9 @@
 set -e
 cd "$(dirname "$0")"
 
+echo "Ensuring dependencies are installed"
+composer install --no-dev
+
 echo "Fetching Mediawiki export"
 ssh -t suq-docker-web-2 'cd /srv/sites/docs.suqld.org.au; sudo docker-compose exec -T mediawiki php maintenance/dumpBackup.php --current --filter namespace:NS_MAIN --include-files --uploads > /tmp/docsexport.xml'
 scp suq-docker-web-2:/tmp/docsexport.xml ./docsexport.xml
