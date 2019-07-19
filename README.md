@@ -35,29 +35,29 @@ http://johnmacfarlane.net/pandoc/installing.html
 
 ## Run
 
-####--filename####
+#### --filename ####
 The only required parameter is `filename` for the name of the xml file you exported from MediaWiki, eg: 
 
 `php convert.php --filename=mediawiki.xml`
 
-####--output####
+#### --output ####
 You can also use `output` to specify an output folder since each wiki page in the XML file will generate it's own separate markdown file.
 
 `php convert.php --filename=mediawiki.xml --output=export`
 
 
-####--indexes####
+#### --indexes ####
 You can set `indexes` as `true` if you want pages with the same name as a directory to be renamed as index.md and placed into their directory
 
 `php convert.php --filename=mediawiki.xml --output=export --indexes=true`
 
-####--frontmatter####
+#### --frontmatter ####
 You can specify whether you want frontmatter included. This is automatically set to `true` when the output format is `markdown_github`
 
 `php convert.php --filename=mediawiki.xml --output=export --format=markdown_phpextra --frontmatter=true`
 
 
-####--format####
+#### --format ####
 You can specify different output formats with `format`. The default is `markdown_github`. See 
 
 `php convert.php --filename=mediawiki.xml --output=export --format=markdown_phpextra`
