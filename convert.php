@@ -45,10 +45,16 @@ if(!empty($arguments['fm']) OR (empty($arguments['fm']) && $format == 'markdown_
 // Load XML file
 $file = file_get_contents($arguments['filename']);
 
+libxml_use_internal_errors(true);
+
 $xml = str_replace('xmlns=', 'ns=', $file); //$string is a string that contains xml... 
 
-$xml = new SimpleXMLElement($xml);
+//$xml = new SimpleXMLElement($xml);
+try { $xml = new SimpleXMLElement($xml, LIBXML_COMPACT | LIBXML_PARSEHUGE); } catch (Exception $e) { echo $e; }
 
+foreach(libxml_get_errors() as $error) {
+        echo "\t", $error->message;
+}
 
 $result = $xml->xpath('page');
 $count = 0;
