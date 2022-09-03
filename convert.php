@@ -29,7 +29,7 @@ if(!empty($arguments['output'])) {
 if(!empty($arguments['format'])) {
     $format = $arguments['format'];
 } else {
-    $format = 'markdown_github';
+    $format = 'gfm';
 }
 
 
@@ -55,7 +55,7 @@ $count = 0;
 $directory_list = array();
 
 // Iterate through XML
-while(list( , $node) = each($result)) {
+while(list( , $node) = array(key($result), current($result))) {
     
     $title = $node->xpath('title');
     $title = $title[0];
@@ -116,7 +116,7 @@ while(list( , $node) = each($result)) {
     fclose($file);
 
     $count++;
-
+    next($result);
 }
 
 
